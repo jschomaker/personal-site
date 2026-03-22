@@ -295,7 +295,7 @@ function FluidMesh({ uniforms, cfgRef }: {
     <mesh frustumCulled={false}>
       <planeGeometry args={[2, 2, 1, 1]} />
       <shaderMaterial vertexShader={vertexShader} fragmentShader={fragmentShader}
-        uniforms={uniforms} depthTest={false} depthWrite={false} extensions={{ derivatives: true }} />
+        uniforms={uniforms} depthTest={false} depthWrite={false} />
     </mesh>
   );
 }
