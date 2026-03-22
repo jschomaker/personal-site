@@ -1,12 +1,16 @@
+import Link from "next/link";
+
 export default function Header() {
   return (
-    <header className="w-full px-8 py-4 flex items-center justify-between">
-      <a href="/" className="font-semibold text-lg">JS</a>
+    <header className="relative z-30 flex w-full items-center justify-between bg-transparent px-8 py-4">
+      <Link href="/" className="font-semibold text-lg">
+        JS
+      </Link>
       <nav className="flex gap-6">
-        <a href="/">Home</a>
-        <a href="/projects">Projects</a>
-        <a href="/about">About</a>
+        <Link href="/">Home</Link>
+        <Link href="/projects">Projects</Link>
+        <Link href="/about">About</Link>
       </nav>
     </header>
-  )
+  );
 }

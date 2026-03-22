@@ -36,7 +36,7 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
+  --color-popover: var(--color-popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --radius-sm: calc(var(--radius) * 0.6);
@@ -49,6 +49,7 @@
 }
 
 :root {
+  --header-height: 4rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -127,4 +128,13 @@
   html {
     @apply font-sans;
   }
+}
+
+.hero-fade {
+  background: linear-gradient(to bottom, transparent, var(--background));
+}
+
+.hero-top-fade {
+  height: 6rem;
+  background: linear-gradient(to bottom, var(--background), transparent);
 }
