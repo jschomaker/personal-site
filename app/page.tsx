@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react"
 
 import HeroBackground, { PALETTE } from "@/components/HeroBackground"
+import TypewriterHero from "@/components/TypewriterHero"
 
 export default function Home() {
   return (
@@ -12,9 +13,7 @@ export default function Home() {
       >
         <HeroBackground />
         <div className="hero-top-fade absolute top-0 left-0 right-0 h-40 z-10 pointer-events-none" />
-        <h1 className="relative z-20 text-white text-6xl font-bold tracking-tight">
-          Jasper Schomaker
-        </h1>
+        <TypewriterHero />
         {/* Gradient transition from sim to page background */}
         <div
           className="hero-fade absolute bottom-0 left-0 right-0 h-48 z-10 pointer-events-none"
