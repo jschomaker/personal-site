@@ -55,7 +55,7 @@ export default function TypewriterHero() {
   }, [displayed, phase, phraseIndex]);
 
   return (
-    <h1 className="relative z-20 text-white text-5xl sm:text-6xl font-bold tracking-tight select-none flex items-baseline gap-0">
+    <h1 className="relative z-20 text-white font-bold tracking-tight select-none flex items-baseline gap-0 whitespace-nowrap" style={{ fontSize: "clamp(1.8rem, 4vw + 1rem, 4rem)" }}>
       <span>{displayed}</span>
       <span aria-hidden="true" className="typewriter-cursor" />
     </h1>

@@ -484,7 +484,7 @@ export default function HeroBackground() {
         ref={wrapperRef}
         style={{
           position: "fixed", inset: 0, width: "100vw", height: "100vh",
-          zIndex: -1, background: "#121a22", overflow: "hidden", touchAction: "none",
+          zIndex: -1, background: "#121a22", overflow: "hidden", touchAction: "pan-y",
           willChange: "transform",
         }}
       >

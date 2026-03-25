@@ -50,6 +50,7 @@
 
 :root {
   --header-height: 4rem;
+  font-size: clamp(14px, 0.8rem + 0.5vw, 18px);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
