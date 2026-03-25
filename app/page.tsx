@@ -35,54 +35,68 @@ export default function Home() {
         </section>
 
         {/* Featured Projects */}
-        <section className="max-w-5xl mx-auto px-8 py-24">
-          <h2 className="text-3xl font-bold mb-12">Featured Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-400 dark:hover:border-gray-600 transition-colors">
-              <div className="text-xs text-gray-400 mb-3 uppercase tracking-wide">Analytics</div>
-              <h3 className="font-bold text-lg mb-2">Foot Traffic Analysis</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                Spatial analysis tooling for understanding how people move through
-                physical spaces. Built to turn raw location data into actionable
-                operational insight.
-              </p>
-              <div className="mt-4 text-xs text-gray-400">In Progress</div>
-            </div>
+        <section className="py-24">
+          <h2 className="text-3xl font-bold mb-12 px-8 max-w-3xl mx-auto">Current Projects</h2>
+          <div className="relative">
+            <div className="flex gap-6 overflow-x-auto px-8 pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+              <div className="flex-none w-72 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-400 dark:hover:border-gray-600 transition-colors flex flex-col">
+                <div className="text-xs text-gray-400 mb-3 uppercase tracking-wide">Finance</div>
+                <h3 className="font-bold text-lg mb-2">Helm</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  A unified dashboard for every asset you own. Stocks, crypto, DeFi,
+                  derivatives, and equity comp in one place — with the decision tools
+                  to actually do something about it.
+                </p>
+                <div className="mt-auto pt-4 text-xs text-gray-400">In Progress</div>
+              </div>
 
-            <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-400 dark:hover:border-gray-600 transition-colors">
-              <div className="text-xs text-gray-400 mb-3 uppercase tracking-wide">Lifestyle</div>
-              <h3 className="font-bold text-lg mb-2">Cadence</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                A habits and lifestyle journal built around rhythm rather than
-                streaks. Cadence helps you reflect on how you actually spend your
-                time, not just whether you hit a target.
-              </p>
-              <div className="mt-4 text-xs text-gray-400">In Progress</div>
-            </div>
+              <div className="flex-none w-72 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-400 dark:hover:border-gray-600 transition-colors flex flex-col">
+                <div className="text-xs text-gray-400 mb-3 uppercase tracking-wide">Lifestyle</div>
+                <h3 className="font-bold text-lg mb-2">Cadence</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  A habits and lifestyle journal built around rhythm rather than
+                  streaks. Reflect on how you actually spend your time, not just
+                  whether you hit a target.
+                </p>
+                <div className="mt-auto pt-4 text-xs text-gray-400">In Progress</div>
+              </div>
 
-            <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-400 dark:hover:border-gray-600 transition-colors">
-              <div className="text-xs text-gray-400 mb-3 uppercase tracking-wide">Productivity</div>
-              <h3 className="font-bold text-lg mb-2">Signal</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                An AI-powered synthesis layer for calls, emails, and notes. Signal
-                pulls out what matters, surfaces next steps, and helps you stay on
-                top of every conversation without the overhead.
-              </p>
-              <div className="mt-4 text-xs text-gray-400">In Progress</div>
+              <div className="flex-none w-72 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-400 dark:hover:border-gray-600 transition-colors flex flex-col">
+                <div className="text-xs text-gray-400 mb-3 uppercase tracking-wide">Productivity</div>
+                <h3 className="font-bold text-lg mb-2">Signal</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  An AI-powered synthesis layer for calls, emails, and notes. Pulls
+                  out what matters, surfaces next steps, and keeps you on top of
+                  every conversation without the overhead.
+                </p>
+                <div className="mt-auto pt-4 text-xs text-gray-400">In Progress</div>
+              </div>
+
+              <div className="flex-none w-72 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-400 dark:hover:border-gray-600 transition-colors flex flex-col">
+                <div className="text-xs text-gray-400 mb-3 uppercase tracking-wide">Game</div>
+                <h3 className="font-bold text-lg mb-2">Biome</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  A living world of digital creatures. Grow, evolve, and tend your
+                  slime menagerie in this atmospheric creature collection game.
+                </p>
+                <div className="mt-auto pt-4 text-xs text-gray-400">In Progress</div>
+              </div>
+
+              {/* Right edge padding card */}
+              <div className="flex-none w-8" />
             </div>
+            <div className="pointer-events-none absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-background to-transparent" />
           </div>
         </section>
 
-        {/* Currently Building */}
+        {/* Lorem Ipsum */}
         <section className="max-w-3xl mx-auto px-8 py-24">
           <h2 className="text-3xl font-bold mb-6">Currently Building</h2>
           <p className="text-lg leading-relaxed text-gray-500 dark:text-gray-400">
-            Right now most of my focus is on Signal — specifically the synthesis
-            engine that connects calls, emails, and notes into a single coherent
-            thread per relationship. The hard part isn&apos;t the AI, it&apos;s making the
-            output feel natural and actionable rather than just a summary dump.
-            Alongside that I&apos;m building out this platform as a home for everything
-            I ship.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat.
           </p>
         </section>
       </div>
