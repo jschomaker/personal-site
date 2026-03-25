@@ -20,11 +20,11 @@ export default function Home() {
         />
       </section>
 
-      {/* What I Build */}
+      {/* What I Do */}
       <div className="relative z-10">
-        {/* What I Build */}
+        {/* What I Do */}
         <section className="max-w-3xl mx-auto px-8 py-24">
-          <h2 className="text-3xl font-bold mb-6">What I Build</h2>
+          <h2 className="text-3xl font-bold mb-6">What I Do</h2>
           <p className="text-lg leading-relaxed text-gray-500 dark:text-gray-400">
             I build internal tools, workflows, and AI-assisted systems that help
             operations and customer success teams move faster. My work lives at the
@@ -34,9 +34,9 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Featured Projects */}
+        {/* Currently Building */}
         <section className="py-24">
-          <h2 className="text-3xl font-bold mb-12 px-8 max-w-3xl mx-auto">Current Projects</h2>
+          <h2 className="text-3xl font-bold mb-12 px-8 max-w-3xl mx-auto">Currently Building</h2>
           <div className="relative">
             <div className="flex gap-6 overflow-x-auto px-8 pb-4" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
               <div className="flex-none w-72 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-400 dark:hover:border-gray-600 transition-colors flex flex-col">
@@ -91,7 +91,7 @@ export default function Home() {
 
         {/* Lorem Ipsum */}
         <section className="max-w-3xl mx-auto px-8 py-24">
-          <h2 className="text-3xl font-bold mb-6">Currently Building</h2>
+          <h2 className="text-3xl font-bold mb-6">Lorem Ipsum</h2>
           <p className="text-lg leading-relaxed text-gray-500 dark:text-gray-400">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
