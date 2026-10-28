@@ -10,12 +10,14 @@ export default function Home() {
     <main className="relative">
       {/* Hero Section */}
       <section
-        className="relative flex min-h-[calc(100svh-var(--header-height))] w-full items-center justify-center overflow-hidden bg-(--hero-base) [transform:translateZ(0)]"
+        className="relative flex min-h-[calc(100svh-var(--header-height))] in-data-scroll-locked:min-h-[calc(100dvh-var(--header-height))] w-full items-center justify-center overflow-hidden bg-(--hero-base) [transform:translateZ(0)]"
         style={{ "--hero-base": PALETTE.deep } as CSSProperties}
       >
         <HeroCanvas />
-        {/* Top and bottom gradient transitions from sim to page background */}
-        <div className="hero-fades absolute inset-0 z-10 pointer-events-none" />
+        {/* Top and bottom gradient transitions from sim to page background.
+            Overhangs the hero by 1px so the hero's clip, not the overlay's own
+            fractional edge, ends it; otherwise iOS shows a row of raw canvas. */}
+        <div className="hero-fades absolute -inset-y-px inset-x-0 z-10 pointer-events-none" />
         <div className="hero-scroll-out relative z-20 px-6">
           <TypewriterHero />
         </div>
@@ -23,7 +25,7 @@ export default function Home() {
       </section>
 
       {/* What I Do */}
-      <div id="content" className="relative z-10">
+      <div id="content" className="relative z-10 pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]">
         {/* What I Do */}
         <section className="max-w-3xl mx-auto px-8 py-24">
           <h2 className="text-3xl font-bold mb-6">What I Do</h2>

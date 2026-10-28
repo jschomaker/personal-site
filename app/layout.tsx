@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -19,6 +19,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Jasper Schomaker",
   description: "Building tools, workflows, and systems.",
+};
+
+// cover: in landscape iOS otherwise letterboxes the page inside the safe area,
+// so the hero can't reach the screen edges. Text that needs to stay clear of
+// the notch pads itself with env(safe-area-inset-*).
+export const viewport: Viewport = {
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="relative z-30 flex w-full items-center justify-between bg-transparent px-8 py-4 motion-safe:animate-intro-fade">
+    <header className="relative z-30 flex h-(--header-height) w-full items-center justify-between bg-transparent pl-[max(2rem,env(safe-area-inset-left))] pr-[max(2rem,env(safe-area-inset-right))] motion-safe:animate-intro-fade">
       <Link href="/" className="-m-2 p-2 font-semibold text-lg">
         JS
       </Link>
