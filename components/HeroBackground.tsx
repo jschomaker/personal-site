@@ -3,23 +3,13 @@
 import React, { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { PALETTE } from "@/lib/palette";
 
 /* ═══════════════════════════════════════════════════════════
-   PALETTE — swap this object to retheme the entire background.
-   Each stop maps to a band in the marble's value range,
-   from darkest (deep) to lightest (pale). Edge is the
-   amber/accent colour used for ridge highlights.
+   PALETTE — defined in lib/palette.ts (so Server Components
+   can read it) and re-exported here for existing imports.
    ═══════════════════════════════════════════════════════════ */
-export const PALETTE = {
-  deep:  "#121a22",
-  dark:  "#1c2e35",
-  teal:  "#2a4a47",
-  slate: "#3a5560",
-  mid:   "#5a7e7a",
-  light: "#7fa59e",
-  pale:  "#a7c4ba",
-  edge:  "#a8885a",
-};
+export { PALETTE };
 
 /* ═══════════════════════════════════════════════════════════
    CONFIG — locked-in values from tuning session
@@ -390,8 +380,8 @@ function DebugPanel({ cfg, setCfg }: { cfg: Cfg; setCfg: (c: Cfg) => void }) {
      import HeroBackground from "@/components/HeroBackground";
      <HeroBackground />
    
-   To swap palette, edit the PALETTE export at the top of
-   this file, or pass palette props in a future version.
+   To swap palette, edit PALETTE in lib/palette.ts, or pass
+   palette props in a future version.
    
    Debug panel: press Ctrl+Shift+D to toggle.
    ═══════════════════════════════════════════════════════════ */
@@ -401,6 +391,7 @@ export default function HeroBackground() {
   const cfgRef = useRef(cfg);
   cfgRef.current = cfg;
   const [showDebug, setShowDebug] = useState(false);
+  const [inView, setInView] = useState(true);
 
   const seed = useMemo(() => new THREE.Vector3(
     Math.random() * 200 - 100, Math.random() * 200 - 100, Math.random() * 200 - 100
@@ -428,6 +419,16 @@ export default function HeroBackground() {
     uColPale: { value: hexToVec3(d.pale) }, uColEdge: { value: hexToVec3(d.edge) },
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), []);
+
+  // Stop rendering while the hero is scrolled out of view, so the shader
+  // isn't competing with the GPU for the rest of the page.
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Keyboard shortcut: Ctrl+Shift+D toggles debug panel
   useEffect(() => {
@@ -464,16 +465,25 @@ export default function HeroBackground() {
       sharedState.rippleX = uv[0]; sharedState.rippleY = uv[1]; sharedState.rippleRequested = true;
     };
     const onLeave = () => { sharedState.active = 0; };
+    // Touch has no mouseleave: release when the finger lifts or the browser takes over to scroll.
+    const onUp = (e: PointerEvent) => { if (e.pointerType !== "mouse") sharedState.active = 0; };
 
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerdown", onDown);
     document.addEventListener("mouseleave", onLeave);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
     window.addEventListener("resize", updateRect);
+    // The wrapper scrolls with the hero section, so its rect goes stale on scroll.
+    window.addEventListener("scroll", updateRect, { passive: true });
     return () => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerdown", onDown);
       document.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
       window.removeEventListener("resize", updateRect);
+      window.removeEventListener("scroll", updateRect);
     };
   }, []);
 
@@ -489,14 +499,13 @@ export default function HeroBackground() {
         }}
       >
         <Canvas
-          frameloop="always"
+          frameloop={inView ? "always" : "never"}
           camera={{ position: [0, 0, 1], fov: 45, near: 0.1, far: 10 }}
           dpr={[1, 1.5]}
           gl={{
             antialias: false,
             powerPreference: "high-performance",
             alpha: false,
-            preserveDrawingBuffer: true,
           }}
           style={{ display: "block", width: "100%", height: "100%", pointerEvents: "none" }}
         >
