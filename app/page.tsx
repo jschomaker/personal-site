@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react"
 
 import HeroCanvas from "@/components/HeroCanvas"
+import HeroScrollCue from "@/components/HeroScrollCue"
 import { PALETTE } from "@/lib/palette"
 import TypewriterHero from "@/components/TypewriterHero"
 
@@ -21,10 +22,11 @@ export default function Home() {
         <div
           className="hero-fade absolute bottom-0 left-0 right-0 h-48 z-10 pointer-events-none"
         />
+        <HeroScrollCue targetId="content" />
       </section>
 
       {/* What I Do */}
-      <div className="relative z-10">
+      <div id="content" className="relative z-10">
         {/* What I Do */}
         <section className="max-w-3xl mx-auto px-8 py-24">
           <h2 className="text-3xl font-bold mb-6">What I Do</h2>
