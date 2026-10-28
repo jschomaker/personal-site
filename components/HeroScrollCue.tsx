@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 
-// Phones only: narrower than Tailwind's md breakpoint and touch-first, so a
-// narrow desktop window keeps normal wheel scrolling. Matches the button's
-// max-md:pointer-coarse: classes.
-const MOBILE_QUERY = "(width < 48rem) and (pointer: coarse)";
+// Phones only, in either orientation: touch-first with one side shorter than
+// Tailwind's md breakpoint. Tablets (both sides >= 48rem) and narrow desktop
+// windows (fine pointer) keep normal scrolling. Matches the button's classes.
+const MOBILE_QUERY = "(pointer: coarse) and (width < 48rem), (pointer: coarse) and (height < 48rem)";
 
 function unlock() {
   document.documentElement.style.overflow = "";
@@ -18,7 +18,7 @@ export default function HeroScrollCue({ targetId }: { targetId: string }) {
     // Only gate a fresh visit at the top; a restored scroll position stays usable.
     if (!mq.matches || window.scrollY > 0) return;
     document.documentElement.style.overflow = "hidden";
-    // Rotating to landscape (or anything else that stops matching) hands scrolling back.
+    // Anything that stops matching (e.g. a touch laptop resized up) hands scrolling back.
     const onChange = () => {
       if (!mq.matches) unlock();
     };
@@ -40,7 +40,7 @@ export default function HeroScrollCue({ targetId }: { targetId: string }) {
       type="button"
       onClick={jump}
       aria-label="Scroll to content"
-      className="absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 p-3 text-foreground/70 transition-opacity active:opacity-50 max-md:pointer-coarse:block motion-safe:animate-intro-fade motion-safe:[animation-delay:1200ms]"
+      className="absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 p-3 text-foreground/70 transition-opacity active:opacity-50 max-md:pointer-coarse:block pointer-coarse:[@media(height<48rem)]:block motion-safe:animate-intro-fade motion-safe:[animation-delay:1200ms]"
     >
       <ChevronDown className="size-6" strokeWidth={1.5} />
     </button>
