@@ -149,6 +149,8 @@
 
 @keyframes hero-scroll-out {
   to { opacity: 0; translate: 0 18svh; }
+}
+
 /* In a layer so Tailwind utilities (h-24, h-48) can size them. Unlayered CSS
    beats every layered utility, which is why h-40 on the top fade was ignored. */
 @layer components {
