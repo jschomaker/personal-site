@@ -151,13 +151,12 @@
   to { opacity: 0; translate: 0 18svh; }
 }
 
-/* In a layer so Tailwind utilities (h-24, h-48) can size them. Unlayered CSS
-   beats every layered utility, which is why h-40 on the top fade was ignored. */
+/* In a layer so Tailwind utilities can still override these. Unlayered CSS
+   beats every layered utility. */
 @layer components {
   /* Eased ("scrim") stops: a two-stop linear gradient has a visible line where
      it starts; easing the alpha lets the sim melt into the page in both themes. */
-  .hero-fade,
-  .hero-top-fade {
+  .hero-fades {
     --scrim:
       var(--background) 0%,
       color-mix(in oklab, var(--background) 73.8%, transparent) 19%,
@@ -171,12 +170,12 @@
       color-mix(in oklab, var(--background) 2.1%, transparent) 91%,
       color-mix(in oklab, var(--background) 0.8%, transparent) 95.2%,
       transparent 100%;
-  }
-  .hero-top-fade {
-    background: linear-gradient(to bottom, var(--scrim));
-  }
-  .hero-fade {
-    background: linear-gradient(to top, var(--scrim));
+    /* Both fades share one full-size overlay. As separate strips, each strip's
+       inner edge sat over the canvas on a fractional device pixel and iOS
+       WebKit drew a 1px dark seam along it; now the only edges are the hero's. */
+    background:
+      linear-gradient(to bottom, var(--scrim)) top / 100% 6rem no-repeat,
+      linear-gradient(to top, var(--scrim)) bottom / 100% 12rem no-repeat;
   }
 
   /* Hero title drifts down (lags the scroll) and fades as the page moves up.

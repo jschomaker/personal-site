@@ -14,14 +14,11 @@ export default function Home() {
         style={{ "--hero-base": PALETTE.deep } as CSSProperties}
       >
         <HeroCanvas />
-        <div className="hero-top-fade absolute top-0 left-0 right-0 h-24 z-10 pointer-events-none" />
+        {/* Top and bottom gradient transitions from sim to page background */}
+        <div className="hero-fades absolute inset-0 z-10 pointer-events-none" />
         <div className="hero-scroll-out relative z-20 px-6">
           <TypewriterHero />
         </div>
-        {/* Gradient transition from sim to page background */}
-        <div
-          className="hero-fade absolute bottom-0 left-0 right-0 h-48 z-10 pointer-events-none"
-        />
         <HeroScrollCue targetId="content" />
       </section>
 
