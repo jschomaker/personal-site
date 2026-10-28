@@ -131,13 +131,64 @@
   }
 }
 
-.hero-fade {
-  background: linear-gradient(to bottom, transparent, var(--background));
+/* ── Motion tokens → ease-out-expo, animate-intro, animate-intro-fade ── */
+@theme {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-intro: intro 1.1s var(--ease-out-expo) both;
+  --animate-intro-fade: intro-fade 0.9s var(--ease-out-expo) both;
+
+  @keyframes intro {
+    from { opacity: 0; translate: 0 0.75rem; filter: blur(8px); }
+    to   { opacity: 1; translate: 0 0; filter: blur(0); }
+  }
+  @keyframes intro-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
 }
 
-.hero-top-fade {
-  height: 6rem;
-  background: linear-gradient(to bottom, var(--background), transparent);
+@keyframes hero-scroll-out {
+  to { opacity: 0; translate: 0 18svh; }
+/* In a layer so Tailwind utilities (h-24, h-48) can size them. Unlayered CSS
+   beats every layered utility, which is why h-40 on the top fade was ignored. */
+@layer components {
+  /* Eased ("scrim") stops: a two-stop linear gradient has a visible line where
+     it starts; easing the alpha lets the sim melt into the page in both themes. */
+  .hero-fade,
+  .hero-top-fade {
+    --scrim:
+      var(--background) 0%,
+      color-mix(in oklab, var(--background) 73.8%, transparent) 19%,
+      color-mix(in oklab, var(--background) 54.1%, transparent) 34%,
+      color-mix(in oklab, var(--background) 38.2%, transparent) 47%,
+      color-mix(in oklab, var(--background) 27.8%, transparent) 56.5%,
+      color-mix(in oklab, var(--background) 19.4%, transparent) 65%,
+      color-mix(in oklab, var(--background) 12.6%, transparent) 73%,
+      color-mix(in oklab, var(--background) 7.5%, transparent) 80.2%,
+      color-mix(in oklab, var(--background) 4.2%, transparent) 86.1%,
+      color-mix(in oklab, var(--background) 2.1%, transparent) 91%,
+      color-mix(in oklab, var(--background) 0.8%, transparent) 95.2%,
+      transparent 100%;
+  }
+  .hero-top-fade {
+    background: linear-gradient(to bottom, var(--scrim));
+  }
+  .hero-fade {
+    background: linear-gradient(to top, var(--scrim));
+  }
+
+  /* Hero title drifts down (lags the scroll) and fades as the page moves up.
+     Scroll-driven, so it runs on the compositor with no JS. Browsers without
+     support just scroll it normally. */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-scroll-out {
+        animation: hero-scroll-out linear both;
+        animation-timeline: scroll(root block); /* must follow the shorthand */
+        animation-range: 0 70svh;
+      }
+    }
+  }
 }
 /* --- Typewriter slanted cursor --- */
 .typewriter-cursor {

@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react"
 
-import HeroBackground, { PALETTE } from "@/components/HeroBackground"
+import HeroCanvas from "@/components/HeroCanvas"
+import { PALETTE } from "@/lib/palette"
 import TypewriterHero from "@/components/TypewriterHero"
 
 export default function Home() {
@@ -8,12 +9,14 @@ export default function Home() {
     <main className="relative">
       {/* Hero Section */}
       <section
-        className="relative flex min-h-[calc(100svh-var(--header-height))] w-full items-center justify-center overflow-hidden [transform:translateZ(0)]"
-        style={{ "--hero-fade-dark": PALETTE.deep } as CSSProperties}
+        className="relative flex min-h-[calc(100svh-var(--header-height))] w-full items-center justify-center overflow-hidden bg-(--hero-base) [transform:translateZ(0)]"
+        style={{ "--hero-base": PALETTE.deep } as CSSProperties}
       >
-        <HeroBackground />
-        <div className="hero-top-fade absolute top-0 left-0 right-0 h-40 z-10 pointer-events-none" />
-        <TypewriterHero />
+        <HeroCanvas />
+        <div className="hero-top-fade absolute top-0 left-0 right-0 h-24 z-10 pointer-events-none" />
+        <div className="hero-scroll-out relative z-20 px-6">
+          <TypewriterHero />
+        </div>
         {/* Gradient transition from sim to page background */}
         <div
           className="hero-fade absolute bottom-0 left-0 right-0 h-48 z-10 pointer-events-none"
