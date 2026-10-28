@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 
-// Phones only, in either orientation: touch-first with one side shorter than
-// Tailwind's md breakpoint. Tablets (both sides >= 48rem) and narrow desktop
-// windows (fine pointer) keep normal scrolling. Matches the button's classes.
-const MOBILE_QUERY = "(pointer: coarse) and (width < 48rem), (pointer: coarse) and (height < 48rem)";
+// Any device with a touch screen (phones, tablets, touch laptops), at any size
+// or orientation. Mouse/trackpad-only devices keep normal scrolling. Matches
+// the button's any-pointer-coarse: class.
+const TOUCH_QUERY = "(any-pointer: coarse)";
 
 // overflow alone still lets iOS rubber-band the page and collapse the toolbar
 // on a swipe; overscroll-behavior stops that. The data attribute lets the hero
@@ -27,8 +27,8 @@ function unlock() {
 
 export default function HeroScrollCue({ targetId }: { targetId: string }) {
   useEffect(() => {
-    const mq = window.matchMedia(MOBILE_QUERY);
-    // Locked whenever a phone sits at the very top: on a fresh visit, and again
+    const mq = window.matchMedia(TOUCH_QUERY);
+    // Locked whenever a touch device sits at the very top: on a fresh visit, and again
     // after scrolling back up. A restored scroll position stays usable until then.
     if (mq.matches && window.scrollY <= 0) lock();
 
@@ -73,7 +73,7 @@ export default function HeroScrollCue({ targetId }: { targetId: string }) {
       type="button"
       onClick={jump}
       aria-label="Scroll to content"
-      className="absolute bottom-[calc(1.5rem+env(safe-area-inset-bottom))] left-1/2 z-20 hidden -translate-x-1/2 p-3 text-foreground/70 transition-opacity active:opacity-50 max-md:pointer-coarse:block pointer-coarse:[@media(height<48rem)]:block motion-safe:animate-intro-fade motion-safe:[animation-delay:1200ms]"
+      className="absolute bottom-[calc(1.5rem+env(safe-area-inset-bottom))] left-1/2 z-20 hidden -translate-x-1/2 p-3 text-foreground/70 transition-opacity active:opacity-50 any-pointer-coarse:block motion-safe:animate-intro-fade motion-safe:[animation-delay:1200ms]"
     >
       <ChevronDown className="size-6" strokeWidth={1.5} />
     </button>

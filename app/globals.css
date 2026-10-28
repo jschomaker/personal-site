@@ -178,10 +178,11 @@
     --fade-bottom: linear-gradient(to top, var(--scrim)) bottom / 100% min(12rem, 40%) no-repeat;
     background: var(--fade-top), var(--fade-bottom);
   }
-  /* Landscape phones: Brave/Chrome on iOS keep the page inside the safe area
-     and fill the strips beside the notch with page background, so the hero's
-     sides get the same soft fade instead of a hard edge. */
-  @media (pointer: coarse) and (orientation: landscape) and (height < 48rem) {
+  /* Touch devices in landscape: Brave/Chrome on iOS keep the page inside the
+     safe area and fill the strips beside the notch with page background, so
+     the hero's sides get the same soft fade instead of a hard edge. Tablets
+     get it too, to match. */
+  @media (any-pointer: coarse) and (orientation: landscape) {
     .hero-fades {
       background:
         var(--fade-top),
