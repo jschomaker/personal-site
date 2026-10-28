@@ -26,6 +26,11 @@ export const metadata: Metadata = {
 // the notch pads itself with env(safe-area-inset-*).
 export const viewport: Viewport = {
   viewportFit: "cover",
+  // Matches --background so browser chrome that tints from theme-color blends in.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export default function RootLayout({

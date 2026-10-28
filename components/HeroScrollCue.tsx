@@ -28,15 +28,35 @@ function unlock() {
 export default function HeroScrollCue({ targetId }: { targetId: string }) {
   useEffect(() => {
     const mq = window.matchMedia(MOBILE_QUERY);
-    // Only gate a fresh visit at the top; a restored scroll position stays usable.
-    if (!mq.matches || window.scrollY > 0) return;
-    lock();
+    // Locked whenever a phone sits at the very top: on a fresh visit, and again
+    // after scrolling back up. A restored scroll position stays usable until then.
+    if (mq.matches && window.scrollY <= 0) lock();
+
+    let left = false;
+    let settle: ReturnType<typeof setTimeout> | undefined;
+    const onScroll = () => {
+      clearTimeout(settle);
+      if (window.scrollY > 0) {
+        left = true;
+        return;
+      }
+      if (!left || !mq.matches) return;
+      // Wait out momentum and the top-edge bounce before locking.
+      settle = setTimeout(() => {
+        if (window.scrollY > 0 || !mq.matches) return;
+        left = false;
+        lock();
+      }, 150);
+    };
     // Anything that stops matching (e.g. a touch laptop resized up) hands scrolling back.
     const onChange = () => {
       if (!mq.matches) unlock();
     };
+    window.addEventListener("scroll", onScroll, { passive: true });
     mq.addEventListener("change", onChange);
     return () => {
+      clearTimeout(settle);
+      window.removeEventListener("scroll", onScroll);
       mq.removeEventListener("change", onChange);
       unlock();
     };

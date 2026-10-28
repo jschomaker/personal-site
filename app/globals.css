@@ -172,10 +172,23 @@
       transparent 100%;
     /* Both fades share one full-size overlay. As separate strips, each strip's
        inner edge sat over the canvas on a fractional device pixel and iOS
-       WebKit drew a 1px dark seam along it; now the only edges are the hero's. */
-    background:
-      linear-gradient(to bottom, var(--scrim)) top / 100% 6rem no-repeat,
-      linear-gradient(to top, var(--scrim)) bottom / 100% 12rem no-repeat;
+       WebKit drew a 1px dark seam along it; now the only edges are the hero's.
+       Capped by hero height so a short landscape hero isn't mostly fade. */
+    --fade-top: linear-gradient(to bottom, var(--scrim)) top / 100% min(6rem, 25%) no-repeat;
+    --fade-bottom: linear-gradient(to top, var(--scrim)) bottom / 100% min(12rem, 40%) no-repeat;
+    background: var(--fade-top), var(--fade-bottom);
+  }
+  /* Landscape phones: Brave/Chrome on iOS keep the page inside the safe area
+     and fill the strips beside the notch with page background, so the hero's
+     sides get the same soft fade instead of a hard edge. */
+  @media (pointer: coarse) and (orientation: landscape) and (height < 48rem) {
+    .hero-fades {
+      background:
+        var(--fade-top),
+        var(--fade-bottom),
+        linear-gradient(to right, var(--scrim)) left / 4rem 100% no-repeat,
+        linear-gradient(to left, var(--scrim)) right / 4rem 100% no-repeat;
+    }
   }
 
   /* Hero title drifts down (lags the scroll) and fades as the page moves up.
